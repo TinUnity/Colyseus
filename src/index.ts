@@ -4,8 +4,9 @@ import cors from 'cors';
 import {Server} from 'colyseus';
 import {KhoKheRoom} from './Room/KhoKheRoom';
 import {createConnection} from 'typeorm';
-require('dotenv').config();
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
