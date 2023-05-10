@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import {Server} from 'colyseus';
-import {KhoKheRoom} from './Room/KhoKheRoom';
+import {KhoKheRoom} from './src/Room/KhoKheRoom';
 import {createConnection} from 'typeorm';
 import * as dotenv from 'dotenv';
 
@@ -18,7 +18,7 @@ const GameServer = new Server({
 
 createConnection().then(async connection=>{
    console.log('TypeOrm With Mongodb');
-   app.use(require('./Routers/index'));
+   app.use(require('./src/Routers/index'));
 
    GameServer.define("KhoKhe",KhoKheRoom);
 
