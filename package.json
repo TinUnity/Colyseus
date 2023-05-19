@@ -1,9 +1,9 @@
 {
   "name": "colyseusmultiple",
   "version": "1.0.0",
-  "main": "./lib/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "tslint -c tslint.json src/**/*.ts",
@@ -20,8 +20,10 @@
     "bcryptjs": "^2.4.3",
     "colyseus": "^0.14.24",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.1",
     "ts-node": "^10.9.1",
     "tslint": "^6.1.3",
