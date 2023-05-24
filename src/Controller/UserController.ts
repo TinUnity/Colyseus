@@ -5,7 +5,9 @@ import { User } from '../Entities/UserDB';
 import { generateId } from 'colyseus';
 import { responseData } from '../ThirdPartyFunction/ResponseData';
 import { getEmailToString } from '../ThirdPartyFunction/RegularString';
-import { encryptPassword, dencryptPassword } from '../ThirdPartyFunction/encrypt';
+import { encryptPassword, dencryptPassword, createHex } from '../ThirdPartyFunction/encrypt';
+import { createToken, verifyToken } from '../ThirdPartyFunction/Authentication';
+import { PlayerManager } from '../Entities/PlayerManagerDB';
 
 const MailController = require('./MailController');
 const controller = express();
@@ -44,7 +46,7 @@ controller.post('/register', async (req, res) => {
             const genPassword = await encryptPassword(userManager.password, 10);
 
             const UserDB = new User();
-            UserDB.id = generateId();
+            UserDB.userId = generateId();
             UserDB.gmail = userManager.gmail;
             UserDB.password = genPassword;
             UserDB.username = userManager.username;
@@ -106,13 +108,11 @@ controller.post('/login', async (req, res) => {
                     return res.status(resData.status_code).send(resData);
                 } else {
                     const isValid = await dencryptPassword(reqData.password, getGmailDatabase?.password);
-                    console.log(isValid);
                     if (isValid) {
-                        let resData = new responseData();
-                        resData.message = "Congratulation! Succeed Login";
-                        resData.status_code = 200;
+                        process.env.ACESS_TOKEN_SECRET = createHex();
+                        const token = createToken(getGmailDatabase.userId);
 
-                        return res.status(resData.status_code).send(resData);
+                        return await res.setHeader('authorization', token).status(200).send(JSON.parse(JSON.stringify(getGmailDatabase)));
                     } else {
                         let resData = new responseData();
                         resData.message = "Password is invalid, please re-check";

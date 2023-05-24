@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 async function encryptPassword(password, saltRound) {
     try {
@@ -21,4 +22,12 @@ async function dencryptPassword(password, cryptPassword) {
     }
 }
 
-export { encryptPassword, dencryptPassword };
+function createHex() {
+    try {
+        const hex = crypto.randomBytes(64).toString('hex');
+        return hex;
+    } catch (error) {
+        console.log(error);
+    }
+}
+export { encryptPassword, dencryptPassword, createHex };
