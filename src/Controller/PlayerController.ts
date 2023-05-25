@@ -6,7 +6,7 @@ import { getMongoManager } from 'typeorm';
 import { PlayerManager } from '../Entities/PlayerManagerDB';
 import { User } from '../Entities/UserDB';
 import { Player } from '../Entities/PlayerDB';
-import { generateId } from 'colyseus';
+import { generateId } from '@colyseus/core';
 
 const controller = express();
 controller.use(bodyParser.json());

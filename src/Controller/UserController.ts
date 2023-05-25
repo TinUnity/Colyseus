@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { getMongoManager } from 'typeorm';
 import { User } from '../Entities/UserDB';
-import { generateId } from 'colyseus';
+import { generateId } from '@colyseus/core';
 import { responseData } from '../ThirdPartyFunction/ResponseData';
 import { getEmailToString } from '../ThirdPartyFunction/RegularString';
 import { encryptPassword, dencryptPassword, createHex } from '../ThirdPartyFunction/encrypt';
@@ -112,7 +112,7 @@ controller.post('/login', async (req, res) => {
                         process.env.ACESS_TOKEN_SECRET = createHex();
                         const token = createToken(getGmailDatabase.userId);
 
-                        return await res.setHeader('authorization', token).status(200).send(JSON.parse(JSON.stringify(getGmailDatabase)));
+                        return await res.setHeader('authorization', "token").status(200).send(JSON.parse(JSON.stringify(getGmailDatabase)));
                     } else {
                         let resData = new responseData();
                         resData.message = "Password is invalid, please re-check";

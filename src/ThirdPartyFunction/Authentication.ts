@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import { responseData } from './ResponseData';
 
-function createToken(idUser) {
+async function createToken(idUser) {
     try {
-        const AccessToken = jwt.sign(idUser, process.env.ACESS_TOKEN_SECRET);
+        const AccessToken = await jwt.sign(idUser, "process.env.ACESS_TOKEN_SECRET");
         return AccessToken;
     } catch (error) {
         console.log(error);
@@ -15,7 +15,7 @@ async function verifyToken(token) {
     try {
         if(!token)
             return false;
-        const tokenAccess = await jwt.verify(token, process.env.ACESS_TOKEN_SECRET);
+        const tokenAccess = await jwt.verify(token, "process.env.ACESS_TOKEN_SECRET");
         if (tokenAccess) {
             return true;
         } else {
